@@ -8,23 +8,45 @@ const char lowerCase[ALP_SUM] = {'a','b','c','d','e','f','g','h','i','j','k','l'
 const char upperCase[ALP_SUM] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 const int num[NUM_SUM] = {'0','1','2','3','4','5','6','7','8','9'};
 int weight=12;//ずらすアルファベットと数字の個数の初期値
-int alpWeight = weight;
-int numWeight = weight;
+int alpWeight = 12;
+int numWeight = 2;
 size_t StrLen(char* str);//入力した文字列の長さを返す関数のプロトタイプ宣言
 char replace(char c);
 bool isLoop = true;
 int main(int argc, char* argv[]){
-	if(argc > 1){//コマンドライン引数の二番目をweightとして受け取る
+	if(argc > 1 && *argv[1] != 'r'){//コマンドライン引数の二番目をweightとして受け取る
 		weight = atoi(argv[1]);//コマンドライン引数から受け取ったものはchar*なのでintにする。
-		alpWeight = weight;
-		numWeight = weight;
+		if(argc > 2 && *argv[2] == 'r'){
+			alpWeight = weight;
+			numWeight = weight;
+			while(alpWeight >= ALP_SUM){
+				alpWeight-=ALP_SUM;
+			}
+			while(numWeight >= NUM_SUM){
+				numWeight-=NUM_SUM;
+			}
+			alpWeight = ALP_SUM-alpWeight;
+			numWeight = NUM_SUM-numWeight;
+		}else{
+			alpWeight = weight;
+			numWeight = weight;
+			while(alpWeight >= ALP_SUM){
+				alpWeight-=ALP_SUM;
+			}
+			while(numWeight >= NUM_SUM){
+				numWeight-=NUM_SUM;
+			}
+		}
+		//cout <<"weight:" << weight << " numWeight:" << numWeight << " alpWeight:" << alpWeight << endl;
+	}else if(argc > 1 && *argv[1] == 'r'){
+		alpWeight = ALP_SUM-alpWeight;
+		numWeight = NUM_SUM-numWeight;
 		while(alpWeight >= ALP_SUM){
 			alpWeight-=ALP_SUM;
 		}
 		while(numWeight >= NUM_SUM){
 			numWeight-=NUM_SUM;
 		}
-		cout <<"weight:" << weight << " numWeight:" << numWeight << " alpWeight:" << alpWeight << endl;
 	}
 	while(isLoop){
 		cout << "Enter string.(Use '_' not ' ')" << endl;
