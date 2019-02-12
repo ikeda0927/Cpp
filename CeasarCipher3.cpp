@@ -52,7 +52,6 @@ int main(int argc, char* argv[]){
 		isCheckAll=true;
 		cout << "isCheckAll" << endl;
 	}
-	// cout << "argv[1] : " << *argv[1] << endl;
 	while(isLoop){
 		cout << "Enter string.(Use '_' not ' ')" << endl;
 		char s1[512];//十分な大きさの配列を用意
@@ -62,9 +61,6 @@ int main(int argc, char* argv[]){
 			alpWeight=1;
 			for(int k=0;k<ALP_SUM*NUM_SUM/2;k++){
 				cout << "weight : " << k << endl;
-				// if(numWeight>NUM_SUM){
-				// 	numWeight=0;
-				// }
 				char* s1p = s1;//読み込んだ文字列のポインタをセット
 				for(;*s1p != '\0';++s1p){//s1pの先頭アドレスにある文字が終端文字になるまで先頭アドレスをずらす
 					*s1p = replace(*s1p);
