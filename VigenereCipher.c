@@ -16,12 +16,14 @@ int encryptedNum[512];//暗号化、もしくは復号済みのnumの配列
 char encryptedSentence[512];//暗号化、もしくは復号済みのcharの配列
 char encrypt[] = "Encrypt";//比較用文字列
 char decrypt[] = "Decrypt";//比較用文字列
+char getkey[] = "getKey";//比較用文字列
 int scomp(char a[],char b[]);//charの配列の比較
 void scopy(char dst[],char src[]);//charの配列のコピー
 int converttonums(char srcarray[],int numarray[]);//charの配列からnumの配列へ
 int main(int argc, char* argv[]){
     if(argc < 4){
 		printf("Enter 'key' and 'SENTENCE' and 'Encrypt or Decrypt' as arguments.\n");
+		printf("Or to extract the key, Enter 'the sent SENTENCE' and 'plain SENTENCE' and 'getKey'.\n");
 		return 0;
 	}
 	//文字列のコピー
@@ -58,7 +60,19 @@ int main(int argc, char* argv[]){
 			}
 		}
 		printf("DecryptedSentence:");
-	}else{//第三引数に"Encrypt"と"Decrypt"以外の文字列が入力されたとき
+	}else if(scomp(argv[3],getkey)){//鍵の抽出
+		for(k =0,m=0;k<sentenceSize;k++){
+			encryptedNum[k] = keyNum[m] - sentenceNum[k];
+			if(encryptedNum[k]<0){
+				encryptedNum[k] = ALP_SUM+encryptedNum[k];
+			}
+			m++;
+			if(m>keySize-1){
+				m=0;
+			}
+		}
+		printf("The key is included in here :");
+	}else{//第三引数に"Encrypt"と"Decrypt"と"getKey"以外の文字列が入力されたとき
 		printf("Please set 'Encrypt' or 'Decrypt'.\n",argv[3]);
 		return 0;
 	}
