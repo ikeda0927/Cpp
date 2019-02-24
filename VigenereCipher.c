@@ -2,41 +2,41 @@
 #define true 1
 #define false 0
 
-const int ALP_SUM = 26;//ƒAƒ‹ƒtƒ@ƒxƒbƒg‚Ì”
+const int ALP_SUM = 26;//ã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆã®æ•°
 const char lowerCase[26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 const char upperCase[26] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-int keySize;//Œ®‚ÌƒTƒCƒY
-int sentenceSize;//ˆÃ†‰»A•œ†‘ÎÛ‚Ì•¶š—ñ
-int i;//for•¶—p‚Ì•Ï”
-char key[512];//Œ®‚Ìchar‚Ì”z—ñ
-int keyNum[512];//Œ®‚Ìnum‚Ì”z—ñ
-char sentence[512];//ˆÃ†‰»A•œ†‘ÎÛ‚Ìchar‚Ì”z—ñ
-int sentenceNum[512];//ˆÃ†‰»A•œ†‘ÎÛ‚Ìchar‚Ì”z—ñ‚ª”š‚É•ÏŠ·‚³‚ê‚½‚â‚Â
-int encryptedNum[512];//ˆÃ†‰»A‚à‚µ‚­‚Í•œ†Ï‚İ‚Ìnum‚Ì”z—ñ
-char encryptedSentence[512];//ˆÃ†‰»A‚à‚µ‚­‚Í•œ†Ï‚İ‚Ìchar‚Ì”z—ñ
-char encrypt[] = "Encrypt";//”äŠr—p•¶š—ñ
-char decrypt[] = "Decrypt";//”äŠr—p•¶š—ñ
-char getkey[] = "getKey";//”äŠr—p•¶š—ñ
-int scomp(char a[],char b[]);//char‚Ì”z—ñ‚Ì”äŠr
-void scopy(char dst[],char src[]);//char‚Ì”z—ñ‚ÌƒRƒs[
-int converttonums(char srcarray[],int numarray[]);//char‚Ì”z—ñ‚©‚çnum‚Ì”z—ñ‚Ö
+int keySize;//éµã®ã‚µã‚¤ã‚º
+int sentenceSize;//æš—å·åŒ–ã€å¾©å·å¯¾è±¡ã®æ–‡å­—åˆ—
+int i;//foræ–‡ç”¨ã®å¤‰æ•°
+char key[512];//éµã®charã®é…åˆ—
+int keyNum[512];//éµã®numã®é…åˆ—
+char sentence[512];//æš—å·åŒ–ã€å¾©å·å¯¾è±¡ã®charã®é…åˆ—
+int sentenceNum[512];//æš—å·åŒ–ã€å¾©å·å¯¾è±¡ã®charã®é…åˆ—ãŒæ•°å­—ã«å¤‰æ›ã•ã‚ŒãŸã‚„ã¤
+int encryptedNum[512];//æš—å·åŒ–ã€ã‚‚ã—ãã¯å¾©å·æ¸ˆã¿ã®numã®é…åˆ—
+char encryptedSentence[512];//æš—å·åŒ–ã€ã‚‚ã—ãã¯å¾©å·æ¸ˆã¿ã®charã®é…åˆ—
+char encrypt[] = "Encrypt";//æ¯”è¼ƒç”¨æ–‡å­—åˆ—
+char decrypt[] = "Decrypt";//æ¯”è¼ƒç”¨æ–‡å­—åˆ—
+char getkey[] = "getKey";//æ¯”è¼ƒç”¨æ–‡å­—åˆ—
+int scomp(char a[],char b[]);//charã®é…åˆ—ã®æ¯”è¼ƒ
+void scopy(char dst[],char src[]);//charã®é…åˆ—ã®ã‚³ãƒ”ãƒ¼
+int converttonums(char srcarray[],int numarray[]);//charã®é…åˆ—ã‹ã‚‰numã®é…åˆ—ã¸
 int main(int argc, char* argv[]){
     if(argc < 4){
 		printf("Enter 'key' and 'SENTENCE' and 'Encrypt or Decrypt' as arguments.\n");
 		printf("Or to extract the key, Enter 'the sent SENTENCE' and 'plain SENTENCE' and 'getKey'.\n");
 		return 0;
 	}
-	//•¶š—ñ‚ÌƒRƒs[
+	//æ–‡å­—åˆ—ã®ã‚³ãƒ”ãƒ¼
 	scopy(key,argv[1]);
 	scopy(sentence,argv[2]);
-	//Œ®‚©‚ç”—ñ‚ğ“¾‚é
+	//éµã‹ã‚‰æ•°åˆ—ã‚’å¾—ã‚‹
 	keySize = converttonums(key,keyNum);
-	//•½•¶‚©‚ç”—ñ‚ğ“¾‚é
+	//å¹³æ–‡ã‹ã‚‰æ•°åˆ—ã‚’å¾—ã‚‹
 	sentenceSize = converttonums(sentence,sentenceNum);
-	//ˆÃ†‰» or •œ†
+	//æš—å·åŒ– or å¾©å·
 	int k;
 	int m;
-	if(scomp(argv[3],encrypt)){//ˆÃ†‰»
+	if(scomp(argv[3],encrypt)){//æš—å·åŒ–
 		for(k =0,m=0;k<sentenceSize;k++){
 			encryptedNum[k] = keyNum[m] + sentenceNum[k];
 			if(encryptedNum[k]>ALP_SUM-1){
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]){
 			}
 		}
 		printf("EncryptedSentence:");
-	}else if(scomp(argv[3],decrypt)){//•œ†
+	}else if(scomp(argv[3],decrypt)){//å¾©å·
 		for(k =0,m=0;k<sentenceSize;k++){
 			encryptedNum[k] = sentenceNum[k] - keyNum[m];
 			if(encryptedNum[k]<0){
@@ -60,7 +60,7 @@ int main(int argc, char* argv[]){
 			}
 		}
 		printf("DecryptedSentence:");
-	}else if(scomp(argv[3],getkey)){//Œ®‚Ì’Šo
+	}else if(scomp(argv[3],getkey)){//éµã®æŠ½å‡º(keyNumã‚„sentenceNum, encryptedNumã®åå‰ã¨é…åˆ—ã®ä¸­èº«ãŒä¸€è‡´ã—ã¦ã„ãªã„æ‰€ã«æ³¨æ„)
 		for(k =0,m=0;k<sentenceSize;k++){
 			encryptedNum[k] = keyNum[m] - sentenceNum[k];
 			if(encryptedNum[k]<0){
@@ -72,17 +72,17 @@ int main(int argc, char* argv[]){
 			}
 		}
 		printf("The key is included in here :");
-	}else{//‘æOˆø”‚É"Encrypt"‚Æ"Decrypt"‚Æ"getKey"ˆÈŠO‚Ì•¶š—ñ‚ª“ü—Í‚³‚ê‚½‚Æ‚«
+	}else{//ç¬¬ä¸‰å¼•æ•°ã«"Encrypt"ã¨"Decrypt"ã¨"getKey"ä»¥å¤–ã®æ–‡å­—åˆ—ãŒå…¥åŠ›ã•ã‚ŒãŸã¨ã
 		printf("Please set 'Encrypt' or 'Decrypt'.\n",argv[3]);
 		return 0;
 	}
-	for(i=0;i<sentenceSize;i++){//ˆÃ†‰»or•œ†‚³‚ê‚½•¶‚Ì•\¦
+	for(i=0;i<sentenceSize;i++){//æš—å·åŒ–orå¾©å·ã•ã‚ŒãŸæ–‡ã®è¡¨ç¤º
 		printf("%c",upperCase[encryptedNum[i]]);
 	}
 	return 0;
 }
 int scomp(char a[],char b[]){
-	//char‚Ì”z—ñ‚Å‚Í”äŠr‚Å‚«‚È‚¢‚½‚ßAchar‚É‚µ‚Äˆê•¶š‚¸‚Â”äŠr‚·‚é
+	//charã®é…åˆ—ã§ã¯æ¯”è¼ƒã§ããªã„ãŸã‚ã€charã«ã—ã¦ä¸€æ–‡å­—ãšã¤æ¯”è¼ƒã™ã‚‹
 	int i;
 	char ca;
 	char cb;
@@ -101,7 +101,7 @@ int scomp(char a[],char b[]){
 	}
 }
 int converttonums(char srcarray[],int numarray[]){
-	//a -> 0, b -> 1, .... z -> 25‚Ì‚æ‚¤‚É•ÏŠ·
+	//a -> 0, b -> 1, .... z -> 25ã®ã‚ˆã†ã«å¤‰æ›
 	int counter = 0;
 	while(*srcarray != '\0'){
 		int i;
@@ -118,7 +118,7 @@ int converttonums(char srcarray[],int numarray[]){
 	return counter;
 }
 void scopy(char dst[],char src[]){
-	//src‚Ì•¶š—ñ‚ğdst‚ÉƒRƒs[,•¶š‚Ì’†g‚Í“¯‚¶‚¾‚ªƒAƒhƒŒƒX‚ªˆÙ‚È‚éB
+	//srcã®æ–‡å­—åˆ—ã‚’dstã«ã‚³ãƒ”ãƒ¼,æ–‡å­—ã®ä¸­èº«ã¯åŒã˜ã ãŒã‚¢ãƒ‰ãƒ¬ã‚¹ãŒç•°ãªã‚‹ã€‚
 	while(*src != '\0'){
 		*dst = *src;
 		src++;
